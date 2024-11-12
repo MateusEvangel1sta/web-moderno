@@ -3,6 +3,10 @@ const app = express();
 
 const port = 3000;
 
+const saudacao = require('./saudacaoMid');
+
+app.use(saudacao('Guilherme'));
+
 app.use('/opa', (req, res, next) => {
   console.log('Antes...');
   next();
