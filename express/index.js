@@ -12,6 +12,26 @@ app.use('/opa', (req, res, next) => {
   next();
 });
 
+app.get('/cliente/relatorio', (req, res) => {
+  res.send(`Relatório Cliente: Completo. ${req.query.completo} ano = ${req.query.ano}`);
+});
+
+app.get('/corpo', (req, res) => {
+  let corpo = ''
+  
+  req.on('data', function(parte) {
+    corpo += parte;
+  });
+
+  req.on('end', function() {
+    res.send(corpo);
+  });
+});
+
+app.get('/cliente/:id', (req, res) => {
+  res.send(`Cliente ${req.params.id} selecionado!`);
+});
+
 app.get('/opa', (req, res, next) => {
   console.log('Durante...')
   res.json({
@@ -24,7 +44,7 @@ app.get('/opa', (req, res, next) => {
     limit: 3,
     status: 200
   });
-  
+
   next();
   
   // res.json({
