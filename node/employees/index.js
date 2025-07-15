@@ -4,5 +4,18 @@ const axios = require('axios');
 
 axios.get(url).then((response) => {
   const employees = response.data;
-  console.log(employees);
+
+  const higherSalary = employees
+    .filter((current) => {
+      return current.endereco.estado === 'RO';
+    })
+    .reduce((acc, current) => {
+      if (acc.salario < current.salario) {
+        acc = current;
+      }
+
+      return acc;
+    });
+
+  console.log(higherSalary);
 });
